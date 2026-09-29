@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obra — Play a Valentín Alsina</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <!-- Bibliotecas de p5.js y p5.sound -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+</head>
+<body>
+
+  <!-- CONTENEDOR 16:9 FIJO -->
+  <div id="contenedor-juego" class="game-viewport">
+
+    <!-- 1. El canvas de p5.js se inyecta aquí -->
+    <div id="canvas-holder"></div>
+
+    <!-- 2. BOTÓN VOLVER (Esquina superior izquierda) -->
+    <button id="btn-volver" class="btn-ui btn-volver" type="button" title="Volver al inicio">
+      <img src="img/volver.png" alt="Volver">
+    </button>
+
+    <!-- 3. BOTÓN SIGUIENTE (Esquina inferior derecha) -->
+    <button id="btn-siguiente" class="btn-ui btn-siguiente bloqueado" type="button" title="Siguiente escena">
+      <img src="img/siguiente.png" alt="Siguiente">
+    </button>
+
+    <!-- 4. MODAL / STICKY NOTE CON INSTRUCCIONES -->
+    <div id="modal-instrucciones" class="modal-overlay">
+      <div class="sticky-card">
+        <!-- Imagen del papel con el texto ya impreso -->
+        <img src="img/nota.png" alt="Instrucciones ¿Cómo jugar?" class="nota-bg">
+
+        <!-- Botón OK recortado que va sobre los renglones vacíos inferiores -->
+        <button id="btn-ok-instrucciones" class="btn-ok" type="button" aria-label="Comenzar">
+          <img src="img/ok.png" alt="OK">
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTÓN FINALIZAR (Aparece en la Escena 2 abajo a la derecha) -->
+<button id="btn-finalizar" class="btn-ui btn-siguiente bloqueado" type="button" title="Finalizar recorrido" style="display: none;">
+  <img src="img/finalizar.png" alt="Finalizar">
+</button>
+
+<!-- POPUP MODAL TICKET / COMANDA FINAL -->
+<div id="modal-ticket" class="modal-overlay oculto">
+  <div class="ticket-card">
+    <img src="img/ticket.png" alt="Comanda Alsina" class="ticket-bg">
+
+    <div class="ticket-acciones">
+      <!-- Botón Reiniciar: vuelve a jugar la escena 1 desde cero -->
+      <button id="btn-reiniciar" class="btn-ticket" type="button" title="Reiniciar">
+        <img src="img/reiniciar.png" alt="Reiniciar">
+      </button>
+
+      <!-- Botón Inicio: regresa a la portada (index.html) -->
+      <button id="btn-inicio-ticket" class="btn-ticket" type="button" title="Ir al Inicio">
+        <img src="img/volver_inicio.png" alt="Inicio">
+      </button>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- Script interactivo de p5.js -->
+  <script src="sketch.js"></script>[cite: 2]
+</body>
+</html>

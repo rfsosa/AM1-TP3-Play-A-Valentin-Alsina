@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proceso — Play a Valentín Alsina</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-text">
+
+  <header class="top-bar">
+    <div class="header-info">
+      <h1>PLAY A VALENTÍN ALSINA</h1>
+      <span class="tagline">Artes Multimediales 1 — Cátedra Pirotta</span>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-link">Obra Interactiva</a>
+      <a href="bitacora.html" class="nav-link active">Proceso del trabajo</a>
+    </nav>
+  </header>
+
+  <main class="about-container">
+    <article class="about-content">
+      
+      <section class="doc-section">
+        <h2>1. Obra Elegida</h2>
+        <p><strong>Título:</strong> <em>Play a Kandinsky</em></p>
+        <p><strong>Autor / Plataforma:</strong> Google Arts & Culture en colaboración con el Centre Pompidou (2021).</p>
+        <p><strong>Pintura de referencia:</strong> <em>Yellow-Red-Blue</em> (Amarillo, Rojo y Azul, 1925) de Vasili Kandinsky.</p>
+      </section>
+
+      <section class="doc-section">
+        <h2>2. Resumen</h2>
+        <p>
+          La obra original analiza y recrea el fenómeno de la <strong>sinestesia</strong> mediante un sistema interactivo que asocia estímulos ópticos con respuestas acústicas. El dispositivo web evalúa la entrada del usuario (coordenadas de clic sobre el lienzo), extrayendo variables como el color, la forma y la altura en el plano para modular el timbre instrumental y la frecuencia tonal en una retroalimentación audiovisual simultánea.
+        </p>
+      </section>
+
+      <section class="doc-section">
+        <h2>4. Propuesta de Reversión: Play a Valentín Alsina</h2>
+        <p>
+          Esta reinterpretación traslada la sinestesia abstracta europea hacia el territorio tangible, obrero y afectivo de <strong>Valentín Alsina</strong>. La obra toma como inspiración la identidad obrera del sur del conurbano, transformando el lienzo estético en un testimonio vivo del calor comunitario y la resistencia cotidiana.
+        </p>
+        <p>
+          En lugar de asociar formas geométricas puras con notas orquestales aisladas, el sonido se desprende de los componentes materiales y humanos del paisaje barrial:
+        </p> 
+        <p>La pieza comienza desaturada en escala de grises, reflejando la rutina y la neblina fabril. Al intervenir cada zona, los elementos despiertan en bucle continuo y adquieren su color original, consolidando una polifonía visual y acústica que solo alcanza su plenitud colectiva cuando todos los actores del barrio interactúan en simultáneo.
+        </p>
+        </section>
+
+
+
+      <section class="doc-section">
+        <h2>3. Algoritmos en Pseudocódigo</h2>
+        
+        <h3>A. Ingeniería Inversa: Obra Original (Play a Kandinsky)</h3>
+        <pre class="code-block"><code>ALGORITMO PlayAKandinsky
+
+// Estructura Secuencial: Carga inicial de elementos
+Cargar imagen "Amarillo_Rojo_Azul.jpg";
+Activar sistema de audio;
+
+// Estructura Iterativa: Bucle continuo de la obra
+Mientras la obra esté activa Hacer:
+
+    // Estructura Selectiva Simple: Detección de clic
+    Si el usuario hace clic en la pantalla Entonces:
+        
+        color = Identificar color del punto seleccionado;
+        posicionY = Identificar altura vertical del clic;
+
+        // Estructuras Selectivas Simples por color
+        Si color == "Amarillo" Entonces:
+            instrumento = "Trompeta";
+        Fin Si
+
+        Si color == "Azul" Entonces:
+            instrumento = "Violonchelo";
+        Fin Si
+
+        Si color == "Rojo" Entonces:
+            instrumento = "Violín";
+        Fin Si
+
+        // Estructura Selectiva Doble por posición
+        Si posicionY > mitad_superior Entonces:
+            tono = "Agudo";
+        Si no Entonces:
+            tono = "Grave";
+        Fin Si
+
+        // Instrucciones secuenciales de salida
+        Reproducir sonido(instrumento, tono);
+        Mostrar animación visual en coordenada del clic;
+
+    Fin Si
+
+Fin Mientras</code></pre>
+
+        <h3>B. Reversión: Obra Propia (Play a Valentín Alsina)</h3>
+        <pre class="code-block"><code>ALGORITMO PlayAValentinAlsina
+
+// Estructura Secuencial: Carga de recursos del collage
+Cargar imagen base "Collage_Alsina_BN.jpg";
+Cargar capas a color de figuras urbanas;
+Configurar pistas de audio en reproducción continua;
+
+// Estructura Iterativa: Bucle continuo de la obra
+Mientras la obra esté activa Hacer:
+
+    // Estructura Selectiva Simple: Detección de interacción
+    Si el usuario hace clic sobre una figura Entonces:
+
+        figura = Identificar figura seleccionada;
+
+        // Estructuras Selectivas Simples: Asignación de pista sonora
+        Si figura == "Puente Alsina" Entonces:
+            sonidoAsignado = "Bandoneon";
+        Fin Si
+
+        Si figura == "Colectivo 128" Entonces:
+            sonidoAsignado = "Acordeon y motor";
+        Fin Si
+
+        Si figura == "Abuelos" Entonces:
+            sonidoAsignado = "Guitarra criolla";
+        Fin Si
+
+        Si figura == "Jovenes" Entonces:
+            sonidoAsignado = "Guitarra punk";
+        Fin Si
+
+        Si figura == "Campanario" Entonces:
+            sonidoAsignado = "Cotorras en el campanario";
+        Fin Si
+
+        Si figura == "Graffiti" Entonces:
+            sonidoAsignado = "Distorsion";
+        Fin Si
+
+        // Estructura Selectiva Doble: Conmutador (Toggle) de audio y color
+        Si figura ya está activa Entonces:
+            Pausar sonidoAsignado;
+            Apagar color de la figura;
+            Desmarcar figura como activa;
+        Si no Entonces:
+            Reproducir sonidoAsignado en loop;
+            Encender color original de la figura;
+            Marcar figura como activa;
+        Fin Si
+
+    Fin Si
+
+Fin Mientras</code></pre>
+      </section>
+
+    </article>
+  </main>
+
+  <footer class="footer-bar">
+    <p>Trabajo Práctico 3 — Artes Multimediales 1</p>
+  </footer>
+
+</body>
+</html>

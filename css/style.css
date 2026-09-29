@@ -1,0 +1,537 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #121212;
+  font-family: 'Courier New', Courier, monospace; /* Fuente mecanografiada de cuaderno */
+}
+
+/* Fondo de hoja rayada arrugada */
+.portada-contenedor {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+background: url('../img/fondo.jpg') center center no-repeat;
+  background-size: cover;
+}
+
+/* Tarjeta central que contiene y alinea todo verticalmente */
+.portada-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  text-align: center;
+  max-width: 900px;
+  width: 90%;
+}
+
+/* 1. PLAY A */
+.titulo-play {
+  font-size: 2.4rem;
+  letter-spacing: 12px;
+  color: #1a1a1a;
+  font-weight: 700;
+  margin-left: 12px; /* Compensa el espaciado entre letras */
+}
+
+/* 2. Contenedor de la animación central */
+.animacion-alsina {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 680px;
+  width: 100%;
+}
+
+.animacion-alsina img,
+.animacion-alsina video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+}
+
+/* 3. Botón PNG Iniciar */
+.btn-iniciar {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn-iniciar img {
+  display: block;
+  max-width: 190px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.btn-iniciar:hover {
+  transform: scale(1.05) rotate(-1deg);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.btn-iniciar:active {
+  transform: scale(0.97);
+}
+
+/* 4. Navegación inferior */
+.portada-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.nav-enlace {
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #2b2b2b;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-enlace:hover {
+  color: #c65a2e; /* Toque de color al interactuar */
+  transform: translateY(-1px);
+}
+
+.separador {
+  color: #4a4a4a;
+  font-weight: bold;
+}
+
+/* =========================================
+   2. CONTENEDOR DEL JUEGO EN 16:9 (JUEGO.HTML)
+========================================= */
+/* Llenado total de ventana sin bordes negros */
+/* Contenedor que ocupa la ventana completa */
+.game-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+}
+
+#canvas-holder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#canvas-holder canvas {
+  display: block;
+  /* Se quitan los width/height !important para que p5.js controle el tamaño exacto */
+}
+
+/* =========================================
+   3. BOTONES DE NAVEGACIÓN EN LA ESCENA
+========================================= */
+.btn-ui {
+  position: absolute;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 20; /* Subido a 20 para estar bien por encima del canvas */
+  transition: transform 0.15s ease, filter 0.3s ease, opacity 0.3s ease;
+}
+
+.btn-ui img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Ubicación: Arriba Izquierda */
+.btn-volver {
+  top: 4%;
+  left: 3%;
+  width: 120px;
+}
+
+.btn-volver:hover {
+  transform: scale(1.05) rotate(-1.5deg);
+}
+
+/* Ubicación: Abajo Derecha */
+.btn-siguiente {
+  bottom: 4%;
+  right: 3%;
+  width: 135px;
+}
+
+/* Estado bloqueado mientras falten elementos */
+.btn-siguiente.bloqueado {
+  filter: grayscale(100%) opacity(35%);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Estado activo cuando la escena está completa */
+.btn-siguiente.desbloqueado {
+  filter: grayscale(0%) opacity(100%);
+  cursor: pointer;
+  pointer-events: auto;
+  animation: pulsoSiguiente 1.8s infinite ease-in-out;
+}
+
+@keyframes pulsoSiguiente {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* =========================================
+   4. MODAL / STICKY NOTE (¿CÓMO JUGAR?)
+========================================= */
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.modal-overlay.oculto {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sticky-card {
+  position: relative;
+  width: 320px;
+  max-width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.65));
+}
+
+.nota-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.btn-ok {
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 95px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn-ok img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+}
+
+.btn-ok:hover {
+  transform: translateX(-50%) scale(1.08) rotate(-1.5deg);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+}
+
+.btn-ok:active {
+  transform: translateX(-50%) scale(0.96);
+}
+
+/* =========================================
+   MODAL TICKET / CUENTA FINAL
+========================================= */
+.ticket-card {
+  position: relative;
+  width: 330px;
+  max-width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.75));
+  animation: entradaTicket 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes entradaTicket {
+  from {
+    transform: translateY(40px) scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.ticket-bg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Contenedor de botones superpuestos al pie del ticket */
+.ticket-acciones {
+  position: absolute;
+  bottom: 8%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+}
+
+.btn-ticket {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 105px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+
+.btn-ticket img {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35));
+}
+
+.btn-ticket:hover {
+  transform: scale(1.08) rotate(-1.5deg);
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.5));
+}
+
+.btn-ticket:active {
+  transform: scale(0.95);
+}
+
+/* =========================================
+   5. PÁGINA PROCESO / BITÁCORA (BITACORA.HTML)
+========================================= */
+
+/* Habilitar scroll y fondo exclusivo para páginas de lectura */
+body.page-text {
+  width: 100% !important;
+  min-height: 100vh !important;
+  height: auto !important;
+  overflow-y: auto !important;
+  display: block !important;
+  
+  /* Probá la ruta correspondiente a tu estructura */
+  background: url('../img/fondo_proceso.jfif') center center fixed no-repeat !important;
+  background-size: cover !important;
+  
+  color: #1a1a1a;
+  padding: 40px 20px;
+}
+
+/* Encabezado superior con contenedor blanco */
+.page-text .top-bar {
+  max-width: 900px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  background-color: rgba(255, 255, 255, 0.85); /* Fondo blanco translúcido */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 18px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.page-text .header-info h1 {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+.page-text .header-info .tagline {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #444;
+  display: block;
+  margin-top: 4px;
+}
+
+/* Menú de navegación */
+.page-text .nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-text .nav-link {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2b2b2b;
+  letter-spacing: 1.5px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.page-text .nav-link:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #c65a2e;
+}
+
+.page-text .nav-link.active {
+  background-color: #222;
+  color: #fff;
+}
+
+.page-text .header-info h1 {
+  font-size: 1.6rem;
+  letter-spacing: 4px;
+  font-weight: 700;
+  color: #111;
+}
+
+.page-text .header-info .tagline {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #444;
+}
+
+.page-text .nav-menu {
+  display: flex;
+  gap: 16px;
+}
+
+.page-text .nav-link {
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2b2b2b;
+  letter-spacing: 2px;
+  transition: color 0.2s ease;
+}
+
+.page-text .nav-link:hover,
+.page-text .nav-link.active {
+  color: #2ea0c6;
+  border-bottom: 2px solid #2ea0c6;
+}
+
+/* CONTENEDOR BLANCO CON OPACIDAD DEL 60% */
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.about-content {
+  padding: 45px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* Secciones y títulos */
+.doc-section h2 {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  color: #0d0d0d;
+}
+
+.doc-section h3 {
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+  margin: 20px 0 10px 0;
+  color: #222;
+}
+
+.doc-section p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  color: #1f1f1f;
+}
+
+/* Bloques de pseudocódigo */
+.code-block {
+  background-color: rgba(20, 20, 20, 0.85);
+  color: #e6e6e6;
+  padding: 20px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  border-left: 4px solid #2ea0c6;
+}
+
+.code-block code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Pie de página */
+.footer-bar {
+  max-width: 900px;
+  margin: 40px auto 10px auto;
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: #333;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+  .page-text {
+    padding: 20px 10px;
+  }
+
+  .about-content {
+    padding: 25px 20px;
+  }
+
+  .page-text .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

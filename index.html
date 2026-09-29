@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Play a Valentín Alsina</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+
+  <!-- PORTADA DE CUADERNO -->
+  <main class="portada-contenedor">
+    <div class="portada-card">
+      
+      <!-- 1. TEXTO PLAY A -->
+      <h1 class="titulo-play">PLAY A</h1>
+
+      <!-- 2. ANIMACIÓN CENTRAL VALENTÍN ALSINA -->
+      <!-- Si es GIF usa <img>, si es video transparente usa <video autoplay loop muted playsinline> -->
+      <div class="animacion-alsina">
+        <img src="img/valentin_alsina png.png" alt="Valentín Alsina animado" id="anim-letras">
+      </div>
+
+      <!-- 3. BOTÓN INICIAR PNG -->
+      <a href="juego.html" id="btn-iniciar" class="btn-iniciar">
+        <img src="img/comenzar.png" alt="Comenzar">
+      </button>
+
+      <!-- 4. NAVEGACIÓN INFERIOR -->
+      <nav class="portada-nav">
+        <a href="bitacora.html" class="nav-enlace">PROCESO</a>
+      </nav>
+
+    </div>
+  </main>
+
+  <script>
+    // Conexión del botón de inicio para pasar al juego o activar el pop-up
+    const btnIniciar = document.getElementById('btn-iniciar');
+    btnIniciar.addEventListener('click', () => {
+      console.log('Iniciar recorrido...');
+      // Acá más adelante dispararemos la animación del bollo / pop-up de notas
+    });
+  </script>
+</body>
+</html>
