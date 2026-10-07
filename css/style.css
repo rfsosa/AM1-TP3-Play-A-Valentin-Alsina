@@ -514,6 +514,7 @@ body.page-text {
 .footer-bar {
   max-width: 900px;
   margin: 40px auto 10px auto;
+  padding: 18px 24px; /* <- esto es lo que faltaba */
   text-align: center;
   font-size: 0.85rem;
   letter-spacing: 2px;
