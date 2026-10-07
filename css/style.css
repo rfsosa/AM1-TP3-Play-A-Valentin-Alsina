@@ -348,7 +348,7 @@ body.page-text {
   display: block !important;
   
   /* Probá la ruta correspondiente a tu estructura */
-  background: url('../img/fondo_proceso.jfif') center center fixed no-repeat !important;
+  background: url('../img/fondo_proceso.png') center center fixed no-repeat !important;
   background-size: cover !important;
   
   color: #1a1a1a;
